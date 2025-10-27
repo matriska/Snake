@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Position } from "../types";
-import { setPosition } from "@/app/utils/setPosition";
+import { setPosition, workingKeys } from "@/app/utils/setPosition";
 import { setHighScore } from "@/app/api/setHighscore";
 
 interface GameProps {
@@ -19,8 +19,11 @@ export const Game = ({ setGameStarted, username }: GameProps) => {
   const directionPrev = useRef<KeyboardEvent["key"]>("ArrowRight");
 
   const onKeyDown = (event: KeyboardEvent) => {
-    directionPrev.current = direction.current;
+    if (workingKeys.includes(event.key) ){
+  directionPrev.current = direction.current;
     direction.current = event.key;
+    }
+    
   };
 
   useEffect(() => {

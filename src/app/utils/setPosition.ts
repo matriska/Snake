@@ -7,7 +7,7 @@ const OPPOSITE_DIRECTIONS: { [key: string]: string } = {
   ArrowLeft: "ArrowRight",
   ArrowRight: "ArrowLeft",
 };
-
+export const workingKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
 export const setPosition = (
   direction: RefObject<string>,
   setSnakePosition: Dispatch<SetStateAction<Position>>,
