@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Position } from "../types";
 import { setPosition, workingKeys } from "@/app/utils/setPosition";
 import { setHighScore } from "@/app/api/setHighscore";
+import {GameOver}from "./GameOver"
 
 interface GameProps {
   setGameStarted: (started: boolean) => void;
@@ -17,6 +18,7 @@ export const Game = ({ setGameStarted, username }: GameProps) => {
   const [snakeTail, setSnakeTail] = useState<Position[]>([]);
   const direction = useRef<KeyboardEvent["key"]>("ArrowRight");
   const directionPrev = useRef<KeyboardEvent["key"]>("ArrowRight");
+  const [isGameOver, setGameOvere] = useState(false);
 
   const onKeyDown = (event: KeyboardEvent) => {
     if (workingKeys.includes(event.key) ){
@@ -47,8 +49,8 @@ export const Game = ({ setGameStarted, username }: GameProps) => {
       )
     ) {
       setHighScore({ username, score: snakeTail.length * 100 });
-      alert(`Game Over ${username}. Your score is ${snakeTail.length * 100}`);
-      setGameStarted(false);
+     setGameOvere(true)
+      
     }
   }, [snakePosition]);
 
@@ -92,10 +94,14 @@ export const Game = ({ setGameStarted, username }: GameProps) => {
     };
   }, []); // The empty dependency array ensures this runs once after the initial render
 
+if (isGameOver){
+  return <GameOver setGameStarted={setGameStarted} score={snakeTail.length * 100}/>
+}
+
   return (
     <div className="flex-1 flex m-4" ref={divRef}>
       <div
-        className="items-center justify-center border-black border-4 ml-auto mr-auto relative"
+        className="items-center justify-center border-red-100 border-4 ml-auto mr-auto relative"
         style={{ width: size, height: size }}
       >
         {candies.map((candy, index) => (
