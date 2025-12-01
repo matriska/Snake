@@ -2,10 +2,13 @@
 import { Game } from "@/app/components/Game";
 import { useState } from "react";
 import { ScoreBoard } from "@/app/components/ScoreBoard";
+import { GoogleSignInButton } from "@/app/components/GoogleSignInButton";
+import { useUser } from "@/app/hooks/useUser";
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState(false);
   const [username, setUsername] = useState("");
+  const user = useUser();
 
   return (
     <div className="flex flex-col w-full h-screen">
@@ -21,6 +24,7 @@ export default function Home() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           ></input>
+          <GoogleSignInButton user={user} />
           <button
             onClick={() => setGameStarted(true)}
             className="p-4 pt-2 pb-2 bg-black border rounded text-white"
