@@ -1,9 +1,10 @@
 import { User } from "firebase/auth";
+import { PERSIST_USER_KEY } from "@/app/constants/index";
 
 export const getLoggedInUser = (): User | null => {
   console.log("typeof window", typeof window);
   if (typeof window !== "undefined") {
-    const stringifiedUser = localStorage.getItem("loggedInUser");
+    const stringifiedUser = localStorage.getItem(PERSIST_USER_KEY);
     console.log("stringifiedUser", stringifiedUser);
     if (stringifiedUser) {
       const user: User = JSON.parse(stringifiedUser);
