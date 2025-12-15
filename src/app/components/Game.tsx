@@ -106,6 +106,7 @@ export const Game = ({ setGameStarted, username }: GameProps) => {
 
   return (
     <div className="flex-1 flex m-4" ref={divRef}>
+      <p>your score je {snakeTail.length * 100}</p>
       <div
         className="items-center justify-center border-red-100 border-4 ml-auto mr-auto relative"
         style={{ width: size, height: size }}
